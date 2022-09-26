@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import transformNumbers from "../utils/transformNumbers";
 
-function TimeCard({ time, flip, setFlip, setTime }) {
+function HourCard({ time, flip, setFlip, setTime }) {
   const topRef = useRef();
   const bottomRef = useRef();
   const flipTopRef = useRef();
@@ -55,4 +55,4 @@ function TimeCard({ time, flip, setFlip, setTime }) {
   );
 }
 
-export default TimeCard;
+export default HourCard;

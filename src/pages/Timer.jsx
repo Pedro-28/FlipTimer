@@ -17,14 +17,14 @@ function Timer() {
   const [timeInterval, setTimeInterval] = useState(null);
 
   useEffect(() => {
-    // const { hour, min, sec } = location.state;
-    // setTimeHour(hour);
-    // setTimeMin(min);
-    // setTimeSec(sec);
     const intervalNum = setInterval(() => {
       setFlipSec((oldFlip) => !oldFlip);
+      console.log('fff');
     }, 1000);
+
     setTimeInterval(intervalNum);
+
+    return () => clearInterval(timeInterval);
   }, []);
 
   const handleHourFlip = () => {
@@ -42,24 +42,49 @@ function Timer() {
   }
 
   return (
-    <div className="app">
-      <HourCard time={timeHour} flip={flipHour} setFlip={setFlipHour} setTime={setTimeHour} />
+    <div className="flip-timer-container">
+      <div className="clock-wrapper">
+        <div className="clock-container">
+          <div className="clock-top-container">
+            <button type="button" className='button-container'>
+              <span className="shadow"></span>
+              <span className="edge"></span>
+              <span className="front text">New Time</span>
+            </button>
 
-      <MinCard
-        flipHour={handleHourFlip}
-        hourTime={timeHour}
-        time={timeMin}
-        flip={flipMin}
-        setFlip={setFlipMin}
-        setTime={setTimeMin} />
+            <button
+              type="button"
+              className='button-container'
+              onClick={() => window.location.reload()}
+            >
+              <span className="shadow"></span>
+              <span className="edge"></span>
+              <span className="front text">Restar</span>
+            </button>
+          </div>
+          <div className="clock-front-container">
+            <div className="timer-wrapper">
+              <HourCard time={timeHour} flip={flipHour} setFlip={setFlipHour} setTime={setTimeHour} />
 
-      <SecCard
-        flipMin={() => setFlipMin(true)}
-        time={timeSec}
-        flip={flipSec}
-        setFlip={setFlipSec}
-        handleTimerEnd={handleTimerEnd} />
-    </div>
+              <MinCard
+                flipHour={handleHourFlip}
+                hourTime={timeHour}
+                time={timeMin}
+                flip={flipMin}
+                setFlip={setFlipMin}
+                setTime={setTimeMin} />
+
+              <SecCard
+                flipMin={() => setFlipMin(true)}
+                time={timeSec}
+                flip={flipSec}
+                setFlip={setFlipSec}
+                handleTimerEnd={handleTimerEnd} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div >
   );
 }
 

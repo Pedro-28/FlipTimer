@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import transformNumbers from "../utils/transformNumbers";
 
-function TimeCard({ time, flip, setFlip, flipMin, handleTimerEnd }) {
+function SecCard({ time, flip, setFlip, flipMin, handleTimerEnd }) {
   const topRef = useRef();
   const bottomRef = useRef();
   const flipTopRef = useRef();
@@ -56,4 +56,4 @@ function TimeCard({ time, flip, setFlip, flipMin, handleTimerEnd }) {
   );
 }
 
-export default TimeCard;
+export default SecCard;
