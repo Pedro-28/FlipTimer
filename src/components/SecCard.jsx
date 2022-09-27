@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import transformNumbers from "../utils/transformNumbers";
 
-function SecCard({ time, flip, setFlip, flipMin, handleTimerEnd }) {
+function SecCard({ time }) {
+  const [flip, setFlip] = useState(false);
   const topRef = useRef();
   const bottomRef = useRef();
   const flipTopRef = useRef();
@@ -16,22 +17,18 @@ function SecCard({ time, flip, setFlip, flipMin, handleTimerEnd }) {
     flipBottomRef.current.innerText = currentTime;
   }, []);
 
-  const changeTimer = () => {
-    let currentTime = Number(topRef.current.innerText);
-    currentTime = currentTime ? currentTime - 1 : 0;
+  useEffect(() => {
+    setFlip(true);
+  }, [time]);
 
-    if (currentTime === 0 && handleTimerEnd(currentTime)) {
-      currentTime = 59;
-      flipMin();
-    }
-    const seconds = transformNumbers(currentTime);
+  const changeTimer = () => {
+    const seconds = transformNumbers(time);
 
     topRef.current.innerText = seconds;
     bottomRef.current.innerText = seconds;
     flipTopRef.current.innerText = seconds;
     flipBottomRef.current.innerText = seconds;
   }
-
   return (
     <div className='flip-card'>
       <div ref={topRef} className='card-top'>00</div>

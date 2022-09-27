@@ -1,52 +1,74 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../App.css';
 import HourCard from '../components/HourCard';
 import MinCard from '../components/MinCard';
 import SecCard from '../components/SecCard';
+import song from '../songs/nuclear_alarm.mp3';
 
 function Timer() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { hour, min, sec } = location.state;
-  const [flipSec, setFlipSec] = useState(false);
-  const [flipMin, setFlipMin] = useState(false);
-  const [flipHour, setFlipHour] = useState(false);
   const [timeSec, setTimeSec] = useState(sec);
   const [timeMin, setTimeMin] = useState(min);
   const [timeHour, setTimeHour] = useState(hour);
   const [timeInterval, setTimeInterval] = useState(null);
 
-  useEffect(() => {
+  const handleTimer = () => {
+    if (timeInterval) {
+      clearInterval(timeInterval);
+    }
+    let timeInSec = (hour * 3600) + (min * 60) + sec;
+
     const intervalNum = setInterval(() => {
-      setFlipSec((oldFlip) => !oldFlip);
-      console.log('fff');
+
+      const hours = Math.floor(timeInSec / 3600);
+      const minutes = Math.floor((timeInSec / 60) % 60);
+      const seconds = timeInSec % 60;
+
+      timeInSec--;
+
+      if (timeHour !== hours) {
+        setTimeHour(hours);
+      }
+
+      if (timeMin !== minutes) {
+        setTimeMin(minutes);
+      }
+      setTimeSec(seconds);
     }, 1000);
 
     setTimeInterval(intervalNum);
+  }
 
+  useEffect(() => {
+    handleTimer();
     return () => clearInterval(timeInterval);
   }, []);
 
-  const handleHourFlip = () => {
-    if (timeHour > 0) setFlipHour(true);
-  }
-
-  const handleTimerEnd = (sec) => {
-    if (timeHour === 0 && timeMin === 0 && sec === 0) {
+  useEffect(() => {
+    if (timeHour === 0 && timeMin === 0 && timeSec === 0) {
       clearInterval(timeInterval);
-      // alert('acabou');
-      return false;
+      const audio = new Audio(song);
+      audio.volume = 0.03;
+      audio.play();
     }
-
-    return true;
-  }
+  });
 
   return (
     <div className="flip-timer-container">
       <div className="clock-wrapper">
         <div className="clock-container">
           <div className="clock-top-container">
-            <button type="button" className='button-container'>
+            <button
+              type="button"
+              className='button-container'
+              onClick={() => {
+                clearInterval(timeInterval);
+                navigate('/');
+              }}>
               <span className="shadow"></span>
               <span className="edge"></span>
               <span className="front text">New Time</span>
@@ -64,22 +86,11 @@ function Timer() {
           </div>
           <div className="clock-front-container">
             <div className="timer-wrapper">
-              <HourCard time={timeHour} flip={flipHour} setFlip={setFlipHour} setTime={setTimeHour} />
+              <HourCard time={timeHour} />
 
-              <MinCard
-                flipHour={handleHourFlip}
-                hourTime={timeHour}
-                time={timeMin}
-                flip={flipMin}
-                setFlip={setFlipMin}
-                setTime={setTimeMin} />
+              <MinCard time={timeMin} />
 
-              <SecCard
-                flipMin={() => setFlipMin(true)}
-                time={timeSec}
-                flip={flipSec}
-                setFlip={setFlipSec}
-                handleTimerEnd={handleTimerEnd} />
+              <SecCard time={timeSec} />
             </div>
           </div>
         </div>

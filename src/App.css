@@ -61,7 +61,7 @@
   padding: 3px;
   width: 100%;
 }
-/* ------------------------------------------------- */
+
 .button-container {
   position: relative;
   border: none;
@@ -151,8 +151,8 @@
  .button-container:focus:not(:focus-visible) {
   outline: none;
  }
-/* ------------------------------------------------------- */
-.flip-timer-container {
+
+ .flip-timer-container {
   align-items: center;
   background-color: #282c34;
   display: flex;
@@ -161,10 +161,7 @@
   width: 100%;
 }
 
-/* -------clock----------- */
-.clock-wrapper {
-  /* box-shadow: 0 0 50px 30px rgba(0,0,0,1); */
-  /* box-shadow: 10px 10px 51px -7px rgba(0,0,0,100); */
+.clock-wrapper { 
   height: 200px;
   width: 70%;
 }
@@ -192,7 +189,6 @@
 }
 
 .clock-top-container {
-  /* background-color: hsl(345deg 100% 47%); */
   align-items: center;
   display: flex;
   background: radial-gradient(ellipse at center, #7d7e7d 0%,#0e0e0e 100%);
@@ -203,19 +199,15 @@
 
 .clock-front-container {
   align-items: center;
-  /* background-color: hsl(345deg 100% 47%); */
   background: radial-gradient(ellipse at center, #7d7e7d 0%,#0e0e0e 100%);
   border-top: 1px solid black;
   display: flex;
   justify-content: center;
 }
 
-/* -------clock----------- */
-
 .timer-wrapper {
   background-color: rgba(0, 0, 0, 0.7);
   align-items: center;
-  /* background-color: red; */
   padding: 10px 0;
   display: flex;
   gap: 10px;
@@ -246,7 +238,8 @@
 .card-top,
 .card-top-flip {
   align-items: flex-end;
-  background-color: #e2e2e2;
+  background-image: linear-gradient(to bottom, #999999, #a5a5a5, #b0b0b0, 
+  #bcbcbc, #c8c8c8, #d1d1d1, #d9d9d9, #e2e2e2, #e9e9e9, #f0f0f0, #f8f8f8, #ffffff);
   border-bottom: .001em solid black;
   border-top-left-radius: .05em;
   border-top-right-radius: .05em;
@@ -256,7 +249,8 @@
 .card-bottom,
 .card-bottom-flip {
   align-items: flex-start;
-  background-color: white;
+  background-image: linear-gradient(to top, #999999, #a5a5a5, #b0b0b0, 
+  #bcbcbc, #c8c8c8, #d1d1d1, #d9d9d9, #e2e2e2, #e9e9e9, #f0f0f0, #f8f8f8, #ffffff);
   border-bottom-left-radius: .05em;
   border-bottom-right-radius: .05em;
   line-height: 0;
@@ -297,7 +291,3 @@
     transform: rotateX(0deg);
   }
 }
-
-/* .App-header {
-  background-color: #282c34;
- } */

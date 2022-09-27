@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import transformNumbers from "../utils/transformNumbers";
 
-function HourCard({ time, flip, setFlip, setTime }) {
+function HourCard({ time }) {
+  const [flip, setFlip] = useState(false);
   const topRef = useRef();
   const bottomRef = useRef();
   const flipTopRef = useRef();
@@ -16,14 +17,12 @@ function HourCard({ time, flip, setFlip, setTime }) {
     flipBottomRef.current.innerText = currentTime;
   }, []);
 
+  useEffect(() => {
+    setFlip(true);
+  }, [time]);
+
   const changeTimer = () => {
-    const currentTime = topRef.current.innerText - 1;
-
-    if (currentTime === 0) {
-      setTime(currentTime);
-    }
-
-    const hours = transformNumbers(currentTime);
+    const hours = transformNumbers(time);
 
     topRef.current.innerText = hours;
     bottomRef.current.innerText = hours;
