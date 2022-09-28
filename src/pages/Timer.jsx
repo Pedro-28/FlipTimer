@@ -81,7 +81,7 @@ function Timer() {
             >
               <span className="shadow"></span>
               <span className="edge"></span>
-              <span className="front text">Restar</span>
+              <span className="front text">Restart</span>
             </button>
           </div>
           <div className="clock-front-container">
